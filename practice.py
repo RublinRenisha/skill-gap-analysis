@@ -120,3 +120,4 @@ with open("extracted_skills.csv", "w", newline="") as file:
     for skill in extracted_skills:
         writer.writerow([skill])
 print("Skills saved to CSV")
+#Skills saved to CSV
