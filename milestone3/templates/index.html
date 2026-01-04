@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Milestone 3 – Skill Gap Analysis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<h2>Skill Match Overview</h2>
+
+<div class="overview-grid">
+    <div class="card">
+        <h1>{{ result.overall_match }}%</h1>
+        <p>Overall Match</p>
+    </div>
+    <div class="card">
+        <h1>{{ result.matched_count }}</h1>
+        <p>Matched Skills</p>
+    </div>
+    <div class="card">
+        <h1>{{ result.partial_count }}</h1>
+        <p>Partial Matches</p>
+    </div>
+    <div class="card">
+        <h1>{{ result.missing_count }}</h1>
+        <p>Missing Skills</p>
+    </div>
+</div>
+
+<div class="donut">
+    <img src="{{ url_for('static', filename='charts/overview.png') }}">
+</div>
+
+<h2>Similarity Matrix</h2>
+<img src="{{ url_for('static', filename='charts/heatmap.png') }}">
+
+<h3>Missing Skills</h3>
+<ul>
+{% for s in result.missing %}
+    <li>{{ s }}</li>
+{% endfor %}
+</ul>
+
+</body>
+</html>
