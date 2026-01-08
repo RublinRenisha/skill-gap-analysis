@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Skill Gap Analysis</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+
+  <div class="card">
+    <h1>Skill Gap Analysis Dashboard</h1>
+    <form method="POST" enctype="multipart/form-data">
+      <input type="file" name="resume" required>
+      <textarea name="jd" placeholder="Paste Job Description" required></textarea>
+      <button>Analyze Skills</button>
+    </form>
+  </div>
+
+{% if analyzed %}
+
+  <div class="card highlight">
+    <h2>Overall Match</h2>
+    <div class="percent">{{ match }}%</div>
+  </div>
+
+  <div class="card">
+    <h3>Skill Match Distribution</h3>
+    <img src="/static/charts/overall.png">
+  </div>
+
+  <h2 class="section-title">Top Skill Matches</h2>
+
+  <div class="category-grid">
+    {% for cat in category_charts %}
+    <div class="category-card">
+      <img src="/{{ cat.image }}" class="category-pie">
+      <p class="category-label">{{ cat.name }}</p>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h3>✅ Fully Matched</h3>
+      <div class="chips">{% for s in full %}<span class="chip full">{{s}}</span>{% endfor %}</div>
+    </div>
+
+    <div class="card">
+      <h3>🟡 Partially Matched</h3>
+      <div class="chips">{% for s in partial %}<span class="chip partial">{{s}}</span>{% endfor %}</div>
+    </div>
+
+    <div class="card">
+      <h3>❌ Missing</h3>
+      <div class="chips">{% for s in missing %}<span class="chip missing">{{s}}</span>{% endfor %}</div>
+    </div>
+  </div>
+    <div class="card">
+    <h3>Resume vs Job Description</h3>
+    <img src="/static/charts/lollipop.png">
+    </div>
+
+
+  <div class="card center">
+    <a href="/download/pdf" class="btn">Download PDF</a>
+    <a href="/download/csv" class="btn outline">Download CSV</a>
+  </div>
+
+{% endif %}
+
+</div>
+</body>
+</html>
+
